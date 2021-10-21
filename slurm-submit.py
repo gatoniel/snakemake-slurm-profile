@@ -19,12 +19,21 @@ from snakemake.utils import read_job_properties
 workingdir = os.getcwd()
 
 jobscript = sys.argv[1]
+jobscript2 = jobscript.replace(".sh", "_new.sh")
 job_properties = read_job_properties(jobscript)
 
+# rewrite the jobscript created by snakemake and save it differently
+with open(jobscript, "r") as from_file, open(jobscript2, "w") as to_file:
+    line = from_file.readline() # read the first line and discard ist
+    to_file.write(line.replace("/bin/sh", "/bin/bash"))
+    line = from_file.readline() # discard the 2nd line (the comments of snakemake)
+    # export path to conda that is needed
+    to_file.write("export PATH=/scicore/home/dresch0000/netter0000/miniconda3/condabin:$PATH && \\\n")
+    shutil.copyfileobj(from_file, to_file)
 
 submission_params = {
     "workingdir": workingdir,
-    "jobscript": jobscript,
+    "jobscript": jobscript2,
     "cores": job_properties["threads"]
 }
 
