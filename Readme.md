@@ -35,6 +35,32 @@ rule my_job:
     shell: ...
 ```
 
+In case you need to specify GPU usage, just add it to the partition part in params, e.g.,
+```
+rule my_job:
+    input: ...
+    output: ...
+    threads: 8
+    params:
+        cluster_memory = "12G",
+        cluster_time = "4:00:00",
+        cluster_partition = "gpus --gres gpu:1",
+    shell: ...
+```
+
+## Loading modules within job
+
+If you need `module load CUDA` or similar just specify the needed modules as list in params with
+```
+rule my_job:
+    input: ...
+    output: ...
+    threads: 8
+    params:
+        modules = ["CUDA", "Tensorflow"],
+    shell: ...
+```
+
 ## Accessing logs
 
 Log records containing the outputs of all submitted slurm jobs are saved in your snakemake working directory as follows:
