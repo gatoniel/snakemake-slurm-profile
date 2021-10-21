@@ -73,5 +73,5 @@ if len(result.stderr) > 0:
     sys.stderr.write(result.stderr.decode())
 
 # Copy jobscript to slurm-logs dir
-# script_log = os.path.join(submission_params["log_dir"], submission_params["job_name"] + "." + result.stdout.strip().decode() + ".sbatch") 
-# shutil.copy(submission_params["jobscript"], script_log)
+script_log = os.path.join(submission_params["log_dir"], submission_params["job_name"] + "." + result.stdout.strip().decode() + ".sbatch") 
+shutil.copy(submission_params["jobscript"], script_log)
