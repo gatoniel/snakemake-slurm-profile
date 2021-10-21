@@ -1,10 +1,10 @@
 {
     "__default__" :
     {
-        "time" : "01:00:00",
-        "cores" : "{threads}",
-        "partition" : "wjg,biochem,sfgf",
-        "priority" : "normal",
+        "time" : "00:30:00",
+        "cores" : "1",
+        "partition" : "scicore",
+        "priority" : "30min",
         "memory" : "8G"
     }
 }
